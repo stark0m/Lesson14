@@ -112,7 +112,7 @@ public class MainClassLesson3 {
 
     }// Close Method Main
 
-    private static void ShiftArrayToN(int[] arr8, int n) {
+    public static void ShiftArrayToN(int[] arr8, int n) {
         int[] tmpArr = new int[arr8.length];
         int tempIndex = Math.abs(n) % arr8.length;
 
