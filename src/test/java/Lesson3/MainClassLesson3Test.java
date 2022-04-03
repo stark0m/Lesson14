@@ -8,16 +8,17 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 class MainClassLesson3Test {
     private Logger task7;
-    private Logger task8;
+
 
     public MainClassLesson3Test() {
         PropertyConfigurator.configure("src/main/resources/logs/config/log4j.properties");
         task7 = Logger.getLogger("task7");
-        task8 = Logger.getLogger("task8");
+
 
     }
 
@@ -28,8 +29,9 @@ class MainClassLesson3Test {
     void test1() {
         PropertyConfigurator.configure("src/main/resources/logs/config/log4j.properties");
         MainClassLesson3 main = new MainClassLesson3();
-        int[] arr7 = {1, 1, 1, 2, 1};
+        int[] arr7 = {1, 1, 1, 4, 1};
         task7.info("Начало  теста 1");
+
         Assertions.assertEquals(true, MainClassLesson3.checkBalance(arr7));
 
 
@@ -81,14 +83,14 @@ class MainClassLesson3Test {
         int[] array = {1, 2, 3, 4, 5, 6, 7, 8};
         int conuntToSfift = -1;
         int[] result = {2, 3, 4, 5, 6, 7, 8, 1};
-        task8.info("Тестирование метода сдвига массива, задание 8");
-        task8.info("Исходный массив" + Arrays.toString(array) + " Сдвиг = " + conuntToSfift + " ожидаем массив =" + Arrays.toString(result));
+        task7.info("Тестирование метода сдвига массива, задание 8");
+        task7.info("Исходный массив" + Arrays.toString(array) + " Сдвиг = " + conuntToSfift + " ожидаем массив =" + Arrays.toString(result));
 
         MainClassLesson3.ShiftArrayToN(array, conuntToSfift);
         if (Arrays.toString(array).equals(Arrays.toString(result))) {
-            task8.info("Test done");
+            task7.info("Test done");
         } else {
-            task8.debug("ERRORE!!!!");
+            task7.debug("ERRORE!!!!");
         Assertions.assertEquals(Arrays.toString(array), Arrays.toString(result));
 
 }

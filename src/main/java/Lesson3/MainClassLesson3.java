@@ -1,5 +1,8 @@
 package Lesson3;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -7,87 +10,30 @@ import java.util.Scanner;
 public class MainClassLesson3 {
     static Scanner in = new Scanner(System.in);
     static final int ARRAY_SIZE = 5;
+    static private Logger task8 = Logger.getLogger("task8");;
 
     public static boolean checkBalance(int[] arr7) {
+        task8.info("\nНачинаем тестировать задание 8, возвращаем true если можно разбить массив так , что бы его сумма левой части элементов массива была = сумме его правой части элементов");
+        task8.info("Входящий массив=" + Arrays.toString(arr7));
         int sumArray = 0;
         int sumCurrent = 0;
         for (int i = 0; i < arr7.length; i++) {
             sumArray += arr7[i];
         }
+        task8.debug("Сумма элементов в массиве = "+ sumArray);
         for (int i = 0; i < arr7.length; i++) {
             sumCurrent += arr7[i];
-            if ((sumArray - sumCurrent) == sumCurrent) return true;
+            if ((sumArray - sumCurrent) == sumCurrent)  {
+                task8.debug("Число найдено, сумма первых "+(i+1)+" элементов = сумме оставшихся элементов в массиве и = "+ sumCurrent);
+                return true;
+            }
         }
+        task8.debug("массив не соответствует условию, возвращаем false");
         return false;
     }
     public static void main(String[] args) {
-        int[] arr = new int[7];
-        Random rnd = new Random();
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = rnd.nextInt(2);
-        }
+        PropertyConfigurator.configure("src/main/resources/logs/config/log4j.properties");
 
-        System.out.println("Задание №1 ");
-        System.out.print("Исходный массив: ");
-        System.out.println(Arrays.toString(arr));
-        System.out.print("Редактированный массив: ");
-
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 1) arr[i] = 0;
-            else arr[i] = 1;
-            ;
-        }
-        System.out.println(Arrays.toString(arr));
-        //
-        System.out.println("Задание №2 ");
-        int[] arr2 = new int[100];
-        for (int i = 0; i < arr2.length; ) {
-            arr2[i] = ++i;
-
-        }
-        System.out.println(Arrays.toString(arr2));
-        //
-        System.out.println("Задание №3 ");
-        int[] arr3 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-        System.out.println(Arrays.toString(arr3));
-        for (int i = 0; i < arr.length; i++) {
-            if (arr3[i] < 6) arr3[i] *= 2;
-        }
-        System.out.println(Arrays.toString(arr3));
-
-        //
-        System.out.println("Задание №4 ");
-
-        int[][] arr4 = new int[ARRAY_SIZE][ARRAY_SIZE];
-        System.out.printf("Исходный массив размером %d x %d%n", ARRAY_SIZE, ARRAY_SIZE);
-        WriteArray(arr4);
-        System.out.printf("Получившийся массив %d x %d%n", ARRAY_SIZE, ARRAY_SIZE);
-        FillArray4(arr4);
-        WriteArray(arr4);
-
-        //
-        System.out.println("Задание №5 ");
-        System.out.println("Введите значение len: ");
-        int len = GetNumFromScanner();
-        System.out.println("Введите значение initalVAlue: ");
-        int initalVAlue = GetNumFromScanner();
-        int[] resultArray = new int[len];
-        Arrays.fill(resultArray, initalVAlue);
-        System.out.println(Arrays.toString(resultArray));
-
-        //Задание №6
-        System.out.println("Задание №6 ");
-        int[] arr6 = new int[ARRAY_SIZE];
-        for (int i = 0; i < arr6.length; i++) {
-            arr6[i] = rnd.nextInt(-127, 128);
-        }
-        System.out.println("Сгенерирован массив :");
-        WriteArray(arr6);
-        Arrays.sort(arr6);
-        System.out.printf("Минимальное значение в массиве min=%d, максимальное max=%d%n", arr6[0], arr6[arr6.length - 1]);
-
-
-        //Задание №7
         System.out.println("Задание №7 ");
         int[] arr7 = {1, 1, 1, 2, 1};
         if (checkBalance(arr7)) System.out.println("Массив может быть симметричен по сумме левой и правой части");
@@ -113,15 +59,24 @@ public class MainClassLesson3 {
     }// Close Method Main
 
     public static void ShiftArrayToN(int[] arr8, int n) {
-        int[] tmpArr = new int[arr8.length];
+  task8.info("начинается тестирование сдвига массива, входящие данные Массив = "+Arrays.toString(arr8)+", сдвиг n= "+n);
         int tempIndex = Math.abs(n) % arr8.length;
+if (n>0) {
+    task8.debug("сдвиг будет осущетвляться влево, т.к входящее значение  n отрицательное, сдвиг прведется на n=n остаток от деления на длинну входящего массива. сдвиг равен =" + tempIndex);
+} else {task8.debug("сдвиг будет осущетвляться вправо, т.к входящее значение  n положительно, сдвиг прведется на n=n остаток от деления на длинну входящего массива. сдвиг равен =" + tempIndex);
 
+}
         if (n > 0)
-            for (int i = 0; i < tempIndex; i++) {
+            for (int i = 0; i < tempIndex ; i++) {
+
                 arr8 = IncCurrentArray(arr8);
+                task8.debug("сдвинули на "+ (i+1));
+                task8.debug("сдвинули на "+ (-i-1)+" результат ="+Arrays.toString(arr8));
             }
         else for (int i = 0; i < tempIndex; i++) {
+
             arr8 = DecCurrentArray(arr8);
+            task8.debug("сдвинули на "+ (-i-1)+" результат ="+Arrays.toString(arr8));
         }
 
 
